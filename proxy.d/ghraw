@@ -1,0 +1,5 @@
+handle_path /ghraw/* {
+    reverse_proxy https://raw.githubusercontent.com {
+        header_up Host raw.githubusercontent.com
+    }
+}

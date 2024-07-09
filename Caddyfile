@@ -1,0 +1,10 @@
+{
+    order replace after encode
+}
+
+http://:2345 {
+    log
+    encode zstd gzip
+
+    import proxy.d/*
+}

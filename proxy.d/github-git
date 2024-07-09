@@ -1,0 +1,6 @@
+@github-git {
+    header_regexp User-Agent git
+}
+reverse_proxy @github-git https://github.com {
+    header_up Host github.com
+}

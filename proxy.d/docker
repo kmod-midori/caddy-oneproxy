@@ -1,0 +1,26 @@
+@docker {
+    header_regexp User-Agent docker
+    path /v2/*
+}
+reverse_proxy @docker https://registry-1.docker.io {
+    header_up Host registry-1.docker.io
+    header_down Location "https://production.cloudflare.docker.com/" "{$EXTERNAL_URL}/"
+    header_down Www-Authenticate "https://auth.docker.io/token" "{$EXTERNAL_URL}/token"
+}
+
+@docker-auth {
+    header_regexp User-Agent docker
+    path /token
+}
+reverse_proxy @docker-auth https://auth.docker.io {
+    header_up Host auth.docker.io
+}
+
+@docker-cf {
+    header_regexp User-Agent docker
+    path /registry-v2/*
+}
+reverse_proxy @docker-cf https://production.cloudflare.docker.com {
+    header_up Host production.cloudflare.docker.com
+}
+    

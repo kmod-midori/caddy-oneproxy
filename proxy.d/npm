@@ -1,0 +1,13 @@
+@npm {
+    header_regexp User-Agent npm
+}
+handle @npm {
+    reverse_proxy https://registry.npmjs.org {
+        header_up Host registry.npmjs.org
+        header_up Accept-Encoding identity
+    }
+
+    replace stream {
+        "tarball\":\"https://registry.npmjs.org/" "tarball\":\"{$EXTERNAL_URL}/"
+    }
+}

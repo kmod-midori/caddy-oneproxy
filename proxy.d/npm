@@ -7,7 +7,10 @@ handle @npm {
         header_up Accept-Encoding identity
     }
 
-    replace stream {
+    replace {
         "tarball\":\"https://registry.npmjs.org/" "tarball\":\"{$EXTERNAL_URL}/"
+        match {
+            header Content-Type application/json*
+        }
     }
 }

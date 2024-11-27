@@ -1,0 +1,6 @@
+handle_path /maven-central/* {
+    rewrite * /maven2{uri}
+    reverse_proxy https://repo1.maven.org {
+        header_up Host repo1.maven.org
+    }
+}
